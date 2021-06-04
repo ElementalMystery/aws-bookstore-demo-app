@@ -18,10 +18,19 @@ npm install
 npm run build
 
 cd ./src/__tests__
-npm run test
-cd ../../..
+npm run test 
+
+if [ $? == 1 ]; then
+    echo 'A test has Failed - Pipeline Abandoned'
+    exit 2
+fi
+
+echo 'All tests have Passed'
+cd ../../
 
 git add .
 git commit -m $1
 git push origin master
 git status
+
+npm run start
